@@ -1,19 +1,37 @@
-import { useEffect } from "react";
-import usePlaylists from "./hooks/usePlaylists";
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import CssBaseline from '@mui/material/CssBaseline';
+import Navbar from './components/navbar';
+import PlaylistCardItem from './components/playlist-card-item';
+import usePlaylists from './hooks/usePlaylists';
 
 const App = () => {
-  const {getPlaylistId, playlists} = usePlaylists()
+  const { playlists, getPlaylistById } = usePlaylists();
 
-  useEffect(()=>{
-    getPlaylistId('PL_XxuZqN0xVDr08QgQHljCecWtA4jBLnS')
-  }, [])
-
-  console.log('Playlists', playlists);
+  const playlistArray = Object.values(playlists);
 
   return (
-    <div>
-      <h1>Clean YouTune Project</h1>
-    </div>
+    <>
+      <CssBaseline />
+      <Container maxWidth={'lg'} sx={{ my: 16 }}>
+        <Navbar getPlaylistById={getPlaylistById} />
+
+        {playlistArray.length > 0 && (
+          <Grid container alignItems='stretch'>
+            {playlistArray.map((item) => (
+              <Grid item xs={12} md={6} lg={4} mb={2}>
+              <PlaylistCardItem
+                key={item.id}
+                playlistThumbnail={item.playlistThumbnail}
+                playlistTitle={item.playlistTitle}
+                channelTitle={item.channelTitle}
+              />
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </Container>
+    </>
   );
 };
 

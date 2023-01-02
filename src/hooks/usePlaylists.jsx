@@ -8,38 +8,30 @@ const usePlaylists = () => {
     favourites: [],
   });
 
-  const getPlaylistId = async (playlistId, force=false) => {
-    if(state.playlists[playlistId] && !force) return;
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    let result = await getPlaylist(playlistId);
-    let cid, ct;
+  const getPlaylistById = async (playlistId, force = false) => {
+    if (state.playlists[playlistId] && !force) return;
 
-    result = result.map(item => {
-      const {channelId, title, description, thumbnails: {medium}, channelTitle} = item.snippet;
-      
-      if(!cid) cid = channelId;
-      if(!ct) ct = channelTitle;
+    setLoading(true);
 
-      return {
-        title,
-        description,
-        thumbnail: medium,
-        contentDetails: item.contentDetails,
-      }
-    })
+    try {
+      const playlist = await getPlaylist(playlistId);
+      setError('');
 
-    setState((prev) => ({
-      ...prev,
-      playlists: {
-        ...prev.playlists,
-        [playlistId]: {
-          items: result,
-          playlistId: playlistId,
-          channelId: cid,
-          channelTitle: ct,
+      setState((prev) => ({
+        ...prev,
+        playlists: {
+          ...prev.playlists,
+          [playlistId]: playlist,
         },
-      },
-    }));
+      }));
+    } catch (e) {
+      setError(e?.response?.data?.error?.message || 'Something went wrong!');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const addToFavourites = (playlistId) => {
@@ -56,18 +48,20 @@ const usePlaylists = () => {
     }));
   };
 
-  const getPlaylistsByIds = (ids=[]) => {
-    return ids.map(id => state.playlists[id])
-  }
+  const getPlaylistsByIds = (ids = []) => {
+    return ids.map((id) => state.playlists[id]);
+  };
 
   return {
     playlists: state.playlists,
     favourites: getPlaylistsByIds(state.favourites),
     recentPlaylists: getPlaylistsByIds(state.recentPlaylists),
-    getPlaylistId,
+    error,
+    loading,
+    getPlaylistById,
     addToRecent,
     addToFavourites,
-  }
+  };
 };
 
 export default usePlaylists;
