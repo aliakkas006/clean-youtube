@@ -6,9 +6,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import PlayCircleOutline from '@mui/icons-material/PlayCircleOutline';
-import { Stack } from '@mui/system';
+import Stack from '@mui/material/Stack';
+import { Link } from 'react-router-dom';
 
 const PlaylistCardItem = ({
+  playlistId,
   playlistThumbnail,
   playlistTitle,
   channelTitle,
@@ -44,7 +46,7 @@ const PlaylistCardItem = ({
       <Box sx={{ flexGrow: 1 }} />
 
       <CardActions disableSpacing>
-        <Button>
+        <Button to={`/player/${playlistId}`} component={Link}>
           <Stack direction={'row'} spacing={1} alignItems={'center'}>
             <PlayCircleOutline />
             <Typography variant="body2">Start Tutorial</Typography>

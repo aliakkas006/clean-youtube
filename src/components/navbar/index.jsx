@@ -7,8 +7,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import PlaylistForm from '../playlist-form';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@mui/material/Link';
 
-const Navbar = ({getPlaylistById}) => {
+const Navbar = ({ getPlaylistById }) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -29,9 +31,19 @@ const Navbar = ({getPlaylistById}) => {
         <Container maxWidth={'lg'}>
           <Toolbar>
             <Stack sx={{ flexGrow: 1 }}>
-              <Typography variant="h4">Clean Youtube</Typography>
-              <Typography variant="body-1">By Ali Akkas©</Typography>
+              <Link component={RouterLink} to="/" underline="none">
+                <Typography variant="h4">Clean Youtube</Typography>
+              </Link>
+              <Link
+                href="https://www.linkedin.com/in/ali-akkas/"
+                target={'_blank'}
+                underline="none"
+                color={'black'}
+              >
+                <Typography variant="body-1">By Ali Akkas©</Typography>
+              </Link>
             </Stack>
+
             <Button variant="contained" onClick={handleClickOpen}>
               Add Playlist
             </Button>
