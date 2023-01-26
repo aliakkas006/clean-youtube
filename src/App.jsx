@@ -1,13 +1,23 @@
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import CssBaseline from '@mui/material/CssBaseline';
+import { useStoreActions } from 'easy-peasy';
 import Navbar from './components/navbar';
 import PlaylistCardItem from './components/playlist-card-item';
 import usePlaylists from './hooks/usePlaylists';
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import { useEffect } from 'react';
+
+const playlistId = 'PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf';
 
 const HomePage = ({ playlistArray }) => {
+  const playlist = useStoreActions((actions) => actions.playlist);
+
+  useEffect(() => {
+    playlist.getPlaylist(playlistId);
+  }, []);
+
   return (
     <Container maxWidth={'lg'} sx={{ my: 16 }}>
       {playlistArray.length > 0 && (
