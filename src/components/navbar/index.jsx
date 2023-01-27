@@ -10,7 +10,7 @@ import PlaylistForm from '../playlist-form';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 
-const Navbar = ({ getPlaylistById }) => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -19,10 +19,6 @@ const Navbar = ({ getPlaylistById }) => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const getPlaylistId = (playlistId) => {
-    getPlaylistById(playlistId);
   };
 
   return (
@@ -48,11 +44,7 @@ const Navbar = ({ getPlaylistById }) => {
               Add Playlist
             </Button>
 
-            <PlaylistForm
-              open={open}
-              handleClose={handleClose}
-              getPlaylistId={getPlaylistId}
-            />
+            <PlaylistForm open={open} handleClose={handleClose} />
           </Toolbar>
         </Container>
       </AppBar>
