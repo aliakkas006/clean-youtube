@@ -6,7 +6,7 @@ const favoriteModel = persist(
     addToFavorite: action((state, playlistId) => {
       state.items.push(playlistId);
     }),
-    removeFromFavorite: action((state, playlistId) => {
+    deleteFromFavorites: action((state, playlistId) => {
       state.items = state.items.filter((pId) => playlistId !== pId);
     }),
   },

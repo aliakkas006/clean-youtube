@@ -1,5 +1,4 @@
-import { createStore, useLocalStore } from 'easy-peasy';
-import storage from '../utils/Storage';
+import { createStore } from 'easy-peasy';
 import favoriteModel from './favorite-model';
 import playlistModel from './playlist-model';
 import recentModel from './recent-model';
