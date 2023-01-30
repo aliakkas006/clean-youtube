@@ -27,6 +27,8 @@ const PlaylistCardItem = ({
   const favoriteItems = useStoreState((state) => state.favorites.items);
   const recentItems = useStoreState((state) => state.recents.items);
 
+  console.log('playlistThumbnail', playlistThumbnail);
+
   const handleDelete = () => {
     if (confirm('Do you want to delete this playlist?')) {
       deletePlaylist(playlistId);
@@ -46,9 +48,6 @@ const PlaylistCardItem = ({
         display: 'flex',
         flexDirection: 'column',
         margin: 1,
-        // '&:hover': {
-        //   borderColor: 'red',
-        // },
       }}
     >
       <CardMedia
@@ -74,7 +73,11 @@ const PlaylistCardItem = ({
 
       <CardActions disableSpacing>
         <Stack direction="row" spacing={10}>
-          <Button to={`/player/${playlistId}`} component={Link} onClick={()=> addToRecent(playlistId)}>
+          <Button
+            to={`/player/${playlistId}`}
+            component={Link}
+            onClick={() => addToRecent(playlistId)}
+          >
             <Stack direction={'row'} spacing={1} alignItems={'center'}>
               <PlayCircleOutline />
               <Typography variant="body2">Start Tutorial</Typography>

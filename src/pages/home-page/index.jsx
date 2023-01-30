@@ -1,31 +1,25 @@
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import { useStoreState } from 'easy-peasy';
-import PlaylistCardItem from '../../components/playlist-card-item';
+import PageLayout from '../../components/page-layout';
 
 const HomePage = () => {
-  const { data } = useStoreState((state) => state.playlists);
+  const { data, isLoading } = useStoreState((state) => state.playlists);
 
   const playlistArray = Object.values(data);
 
   return (
-    <Container maxWidth={'lg'} sx={{ my: 16 }}>
-      {playlistArray.length > 0 && (
-        <Grid container alignItems="stretch">
-          {playlistArray.map((item) => (
-            <Grid key={item.playlistId} item xs={12} md={6} lg={4} mb={2}>
-              <PlaylistCardItem
-                key={item.playlistId}
-                playlistId={item.playlistId}
-                playlistThumbnail={item.playlistThumbnail}
-                playlistTitle={item.playlistTitle}
-                channelTitle={item.channelTitle}
-              />
-            </Grid>
-          ))}
-        </Grid>
+    <PageLayout items={playlistArray} pageTitle={'My Playlists'}>
+      {isLoading && (
+        <Typography
+          variant="h3"
+          align="center"
+          color={'#FF0000'}
+          sx={{ marginBottom: 3 }}
+        >
+          Please wait...
+        </Typography>
       )}
-    </Container>
+    </PageLayout>
   );
 };
 

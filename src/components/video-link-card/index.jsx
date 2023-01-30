@@ -32,7 +32,7 @@ const VideoLinkCard = ({
       to={`/player/${playlistId}/${videoId}`}
       style={({ isActive }) => (isActive ? activeClass : nonActiveClass)}
     >
-      <Card sx={{ '&:hover': { backgroundColor: '#b6b6b6' } }}>
+      <Card sx={{ width: '90%', '&:hover': { backgroundColor: '#b6b6b6' } }}>
         <Stack
           direction={{ sm: 'column', md: 'row' }}
           justifyContent="space-between"

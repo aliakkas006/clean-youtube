@@ -9,6 +9,8 @@ import { useState } from 'react';
 import PlaylistForm from '../playlist-form';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
+import { MenuItem } from '@mui/material';
+import routesPath from '../../constants/index';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -22,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, marginBottom: 16 }}>
       <AppBar position="fixed" color="default" sx={{ py: 2 }}>
         <Container maxWidth={'lg'}>
           <Toolbar>
@@ -30,15 +32,30 @@ const Navbar = () => {
               <Link component={RouterLink} to="/" underline="none">
                 <Typography variant="h4">Clean Youtube</Typography>
               </Link>
+
               <Link
                 href="https://www.linkedin.com/in/ali-akkas/"
                 target={'_blank'}
                 underline="none"
-                color={'black'}
               >
-                <Typography variant="body-1">By Ali Akkas©</Typography>
+                <Typography variant="subtitle2">
+                  <small>By</small> Ali Akkas©
+                </Typography>
               </Link>
             </Stack>
+
+            <Box sx={{ display: 'flex', marginRight: '200px' }}>
+              {routesPath.map((route, index) => (
+                <Link
+                  key={index}
+                  component={RouterLink}
+                  to={route.path}
+                  underline="none"
+                >
+                  <MenuItem> {route.name} </MenuItem>
+                </Link>
+              ))}
+            </Box>
 
             <Button variant="contained" onClick={handleClickOpen}>
               Add Playlist
